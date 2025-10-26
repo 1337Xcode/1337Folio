@@ -3,7 +3,7 @@ description: >-
   A minimal, reusable portfolio template built with Jekyll. Replace the values below to personalize the site.
 
 baseurl: "/1337Folio" # Replace with your repository name if hosting on GitHub Pages under a project site; otherwise, leave as "" for other hosting.
-url: "https://your-domain.example"
+url: "https://example.com"
 
 # Helpful placeholders (edit these first):
 # - `site.owner.name` and `site.owner.email` are convenience fields used by
@@ -26,7 +26,7 @@ author:
     - icon: "envelope"
       url: "mailto:your-email@example.com"
     - icon: "linkedin"
-      url: "https://linkedin.com/in/yourprofile"
+      url: "https://linkedin.com/in/useyourprofilehere"
 
 
 # Build settings
@@ -37,11 +37,11 @@ plugins:
   - jekyll-sitemap
 
 # Social links (main site links, can be different from author outro)
-github_username: yourusername
-linkedin_username: yourprofile
-youtube_username: yourusername
-website_url: "https://your-domain.example"
-twitter_username: yourusername
+github_username: useyourusernamehere
+linkedin_username: useyourprofilehere
+youtube_username: useyourusernamehere
+website_url: "https://example.com"
+twitter_username: useyourusernamehere
 
 # Notes:
 # - Editing `_config.yml` is the canonical way to change site-wide values.
@@ -67,3 +67,4 @@ permalink: pretty
 # paginate_path: "/blog/page:num/"
 
 encoding: "utf-8"
+
