@@ -1,0 +1,348 @@
+:root {
+  --accent-red: #ff3e5e;
+}
+.smiley {
+  position: relative;
+  width: 9rem;
+  height: 9rem; /* rectangle */
+  background-color: #dab395;
+  /* border-radius: 45% 45% 50% 50%; */
+  border-radius: 45% 45% 15% 15% / 45% 45% 25% 25%; /* SOFTENED SQUARE FACE */
+  overflow: hidden;
+}
+.smiley__wrapper {
+  position: relative;
+  top: -1rem;
+  padding: 2rem 1rem 1rem;
+}
+.smiley__wrapper--left .smiley__face {
+  left: 10%;
+}
+.smiley__wrapper--left .smiley__nose {
+  box-shadow: -4px 4px 0 0 #000;
+}
+.smiley__wrapper--left .smiley__hair-background {
+  left: 5%;
+  border-top-right-radius: 50%;
+  border-bottom-left-radius: 40%;
+}
+.smiley__wrapper--left .smiley__hair {
+  left: -52%;
+}
+.smiley__wrapper--right .smiley__face {
+  left: 40%;
+}
+.smiley__wrapper--right .smiley__nose {
+  box-shadow: 4px 4px 0 0 #000;
+}
+.smiley__wrapper--right .smiley__hair-background {
+  left: -2%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 40%;
+}
+.smiley__wrapper--right .smiley__hair {
+  left: 0;
+}
+.smiley__wrapper--top .smiley__face {
+  top: 10%;
+}
+.smiley__wrapper--top .smiley__hair-background {
+  top: 5%;
+}
+.smiley__wrapper--top .smiley__hair {
+  top: -38%;
+}
+.smiley__wrapper--top .smiley__hair-part:before {
+  bottom: -60%;
+}
+.smiley__wrapper--bottom .smiley__face {
+  top: 40%;
+}
+.smiley__wrapper--bottom .smiley__hair-background {
+  top: -2%;
+}
+.smiley__wrapper--bottom .smiley__hair {
+  top: 1%;
+}
+.smiley__hair-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #3a2920;
+  width: 100%;
+  height: 90%;
+  border-radius: 45% 45% 35% 35%;
+  transition-property: top, left, border-radius;
+  transition-duration: 1s;
+}
+.smiley__hair-background--wrapper {
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  overflow: hidden;
+}
+.smiley__face {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  transition-property: top, left;
+  transition-duration: 1s;
+}
+.smiley__hair {
+  position: absolute;
+  top: -17%;
+  left: -25%;
+  display: flex;
+  width: 150%;
+  height: 60%;
+  transition-property: top, left;
+  transition-duration: 1s;
+}
+.smiley__hair-part {
+  position: relative;
+  height: 100%;
+  background-color: #3a2920;
+  box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2);
+}
+.smiley__hair-part:before {
+  content: "";
+  position: absolute;
+  bottom: -55%;
+  width: 2.5rem;
+  height: 100%;
+  background-color: #3a2920;
+  transition: bottom 1s;
+}
+.smiley__hair-part--left {
+  width: 45%;
+  border-radius: 0 0 30% 0;
+}
+.smiley__hair-part--left:before {
+  left: 0;
+  transform: rotate(30deg);
+}
+.smiley__hair-part--right {
+  width: 55%;
+  border-radius: 0 0 0 10%;
+}
+.smiley__hair-part--right:before {
+  right: 0;
+  transform: rotate(-30deg);
+}
+.smiley__eyes {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 40%;
+}
+.smiley__eye {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  background: #3a2920;
+  border-radius: 50%;
+  animation: blink;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+@keyframes blink {
+  0%, 49%, 51%, 100% {
+    height: 1rem;
+  }
+  50% {
+    height: 0;
+  }
+}
+.smiley__eye:after {
+  content: "";
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  width: 0.2rem;
+  height: 0.2rem;
+  background-color: #FFF;
+  border-radius: 50%;
+  animation: blink-highlight;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink-highlight {
+  0%, 49%, 51%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.smiley__ears {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 235%;
+  height: 30%;
+}
+.smiley__ear {
+  width: 0.5rem;
+  height: 100%;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+.smiley__ear--left {
+  border-radius: 200px 0 0 200px;
+  border-left: 4px solid #000;
+}
+.smiley__ear--right {
+  border-radius: 0 200px 200px 0;
+  border-right: 4px solid #000;
+}
+.smiley__nose {
+  position: absolute;
+  top: 40%;
+  width: 1rem;
+  height: 1rem;
+  background-color: #dab395;
+  border-radius: 0.4rem;
+  box-shadow: 0 4px 0 0 #000;
+  transition: box-shadow 1s ease;
+}
+.smiley__mouth {
+  position: relative;
+  width: 40%;
+  height: 5%;
+  border-left: 2px solid #000;
+  border-bottom: 5px solid #000;
+  border-right: 2px solid #000;
+  border-radius: 0 0 200px 200px;
+  border-top: none;
+  transition: all 0.9s cubic-bezier(.4,2,.6,1);
+}
+.smiley__mouth--big {
+  height: 18%;
+  border-bottom-width: 8px;
+  border-radius: 0 0 200px 200px / 0 0 160px 160px;
+  transition: all 0.9s cubic-bezier(.4,2,.6,1);
+}
+.smiley__neck {
+  display: none;
+}
+.smiley__shirt {
+  display: none;
+}
+.smiley__face::after {
+  content: '';
+  position: absolute;
+  left: -20%;
+  top: 60%; /* positioned below nose */
+  width: 140%; /* reduced width to keep beard centered */
+  height: 140%; /* adequate height for beard coverage */
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(circle, rgba(109, 76, 42, 0.55) 0.8px, transparent 0.8px),
+    radial-gradient(circle, rgba(109, 76, 42, 0.45) 1px, transparent 1px),
+    radial-gradient(circle, rgba(109, 76, 42, 0.5) 0.6px, transparent 0.6px);
+
+  background-size: 14px 16px, 18px 20px, 12px 14px;
+  background-position: 5px 3px, 10px 8px, 2px 11px;
+  background-repeat: repeat;
+
+  opacity: 0.5;
+}
+[data-theme="light"] .smiley__eye {
+  background: #6b4b2b;
+}
+
+/* Responsive: make .smiley smaller on tablets and mobile */
+@media (max-width: 768px) {
+  .smiley {
+    width: 8.5rem;
+    height: 8.5rem;
+  }
+  .smiley__eye {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+}
+@media (max-width: 480px) {
+  .smiley {
+    width: 7.5rem;
+    height: 7.5rem;
+  }
+  .smiley__eye {
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+}
+.smiley__speech-bubble {
+  position: absolute;
+  left: 105%;
+  top: 10%;
+  min-width: 120px;
+  max-width: 220px;
+  background: #fff;
+  color: #222;
+  border-radius: 1em;
+  border: 2px solid var(--accent-red);
+  box-shadow: none;
+  padding: 0.7em 1em;
+  font-size: 1rem;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+  transition: opacity 0.3s, transform 0.3s cubic-bezier(.4,2,.6,1);
+  animation: none;
+  overflow: visible;
+}
+.smiley__speech-bubble.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: speech-pop 0.3s;
+}
+@keyframes speech-pop {
+  0% { opacity: 0; transform: translateY(-10px) scale(0.95);}
+  100% { opacity: 1; transform: translateY(0) scale(1);}
+}
+.smiley__speech-bubble:after {
+  content: "";
+  position: absolute;
+  left: -16px;
+  top: 30px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 18px solid #fff;
+  filter: drop-shadow(-2px 0 0 var(--accent-red));
+}
+
+/* Speaking animation: mouth O shape */
+.smiley__mouth--o {
+  width: 22%;
+  height: 22%;
+  border-radius: 50%;
+  border: 4px solid #000;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 7px solid #000;
+  margin-top: 0.2rem;
+  transition: all 0.2s cubic-bezier(.4,2,.6,1);
+}
+
+/* Hide speech bubble on mobile devices to prevent overflow */
+@media (max-width: 768px) {
+  .smiley__speech-bubble {
+    display: none !important;
+  }
+}

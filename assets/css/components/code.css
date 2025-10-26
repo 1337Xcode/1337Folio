@@ -1,0 +1,541 @@
+/* Code Blocks and Inline Code Styling */
+
+.code-block-container {
+  position: relative;
+  margin: var(--space-lg) 0;
+}
+
+/* The <pre> element directly inside our JS-added container gets the visual styling */
+.code-block-container > pre {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: var(--space-md);
+  overflow-x: auto;
+  font-size: 0.9em; /* Base font size for code blocks */
+  line-height: 1.5;
+  margin: 0; /* Margin is on the container */
+}
+
+/* If Rouge wraps the original <pre> (now inside code-block-container) with a div.highlight,
+   that div.highlight (which would be an ancestor of .code-block-container)
+   should not have its own box styling, as the <pre> inside is already styled.
+*/
+.post-full-content div.highlight {
+  background: transparent !important; /* Ensure it's transparent */
+  border: none !important; /* Ensure no border */
+  padding: 0 !important; /* Ensure no padding */
+  margin: 0 !important; /* Reset any Rouge default margin */
+  border-radius: 0 !important;
+  overflow: visible !important; /* Let inner pre handle overflow if necessary */
+}
+
+/* Copy Code Button */
+.copy-code-button {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.8em; /* Relative to pre's font size */
+  font-family: inherit;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  z-index: 1;
+}
+
+.code-block-container:hover .copy-code-button {
+  opacity: 1;
+}
+
+.copy-code-button:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-primary);
+  border-color: var(--accent-red);
+}
+
+.copy-code-button .fa-copy {
+  margin-right: 0.3em;
+}
+
+.copy-code-button .fa-check {
+  margin-right: 0.3em;
+  color: var(--accent-red); /* Or a success color */
+}
+
+/* Inline Code (e.g., `code` within <p> or <li>) */
+.post-full-content code { /* General styling for all <code> elements if needed */
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.post-full-content p > code,
+.post-full-content li > code,
+.post-full-content h1 > code, /* For headings if they contain code */
+.post-full-content h2 > code,
+.post-full-content h3 > code,
+.post-full-content h4 > code {
+  background: var(--accent-red-bg);
+  color: var(--accent-red);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.85em; /* Slightly smaller than surrounding text */
+  word-wrap: break-word;
+}
+
+/* Superscript and Subscript */
+.post-full-content sup,
+.post-full-content sub {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.post-full-content sup { top: -0.5em; }
+.post-full-content sub { bottom: -0.25em; }
+
+/* KaTeX Math Styling */
+/* Inline Math */
+.post-full-content .katex {
+  font-size: 1.05em;
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .post-full-content .katex {
+  color: var(--text-primary);
+}
+
+/* Math Block Container */
+.math-block-container {
+  position: relative;
+  margin: var(--space-lg) 0;
+}
+
+.math-block-container > * {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: var(--space-md);
+  overflow-x: auto;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+[data-theme="dark"] .math-block-container > * {
+  background: #2d2d2d;
+}
+[data-theme="light"] .math-block-container > * {
+  background: #f8f8f8;
+}
+[data-theme="night"] .math-block-container > * {
+  background: #1f1f2e;
+}
+
+/* Copy Math Button */
+.copy-math-button {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.8em;
+  font-family: inherit;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  z-index: 1;
+}
+
+.math-block-container:hover .copy-math-button {
+  opacity: 1;
+}
+
+.copy-math-button:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-primary);
+  border-color: var(--accent-red);
+}
+
+.copy-math-button .fa-copy,
+.copy-math-button .fa-check {
+  margin-right: 0.3em;
+}
+
+.copy-math-button .fa-check {
+  color: var(--accent-red);
+}
+
+[data-theme="light"] .post-full-content p > code,
+[data-theme="light"] .post-full-content li > code {
+  background: rgba(var(--color-primary-500), 0.08);
+  color: #c53047; /* Darker red for light mode inline code for better contrast */
+}
+
+/* Inline code for night mode */
+[data-theme="night"] .post-full-content p > code,
+[data-theme="night"] .post-full-content li > code {
+  background: rgba(255, 62, 94, 0.10);
+  color: #ff3e5e;
+}
+
+/* Highlighted Line Styling */
+.highlighted-line {
+  background-color: rgba(var(--color-primary-500), 0.1); /* Using --color-primary-500 with alpha */
+  display: block;
+  margin-left: calc(-1 * var(--space-md));  /* Counteract pre padding */
+  margin-right: calc(-1 * var(--space-md)); /* Counteract pre padding */
+  padding-left: var(--space-md);   /* Restore padding for content */
+  padding-right: var(--space-md);  /* Restore padding for content */
+  box-shadow: -3px 0 0 0 var(--accent-red) inset; /* Optional: add a subtle left border */
+}
+
+[data-theme="dark"] .highlighted-line {
+  background-color: rgba(var(--color-primary-400), 0.15); /* Using --color-primary-400 with alpha for dark theme */
+  box-shadow: -3px 0 0 0 var(--accent-red) inset;
+}
+
+/* Highlighted line for night mode */
+[data-theme="night"] .highlighted-line {
+  background-color: rgba(255, 62, 94, 0.18);
+  box-shadow: -3px 0 0 0 #ff3e5e inset;
+}
+
+/* --- VS Code Dark Theme Syntax Highlighting --- */
+[data-theme="dark"] .code-block-container > pre,
+[data-theme="dark"] pre.highlight, 
+[data-theme="dark"] pre code {
+  background: #2d2d2d !important; /* Greyish dark background */
+  color: #d4d4d4 !important; /* VS Code default text */
+}
+
+/* Comments - VS Code style */
+[data-theme="dark"] pre code .c,  
+[data-theme="dark"] pre code .cm, 
+[data-theme="dark"] pre code .c1, 
+[data-theme="dark"] pre code .cs, 
+[data-theme="dark"] pre code .ch, 
+[data-theme="dark"] pre code .cd, 
+[data-theme="dark"] pre code .cp, 
+[data-theme="dark"] pre code .cpf,
+[data-theme="dark"] pre code .sd {
+  color: #6a9955 !important; /* VS Code comment green */
+  font-style: italic;
+}
+
+/* Keywords - VS Code style */
+[data-theme="dark"] pre code .k,  
+[data-theme="dark"] pre code .kd, 
+[data-theme="dark"] pre code .kt, 
+[data-theme="dark"] pre code .kr, 
+[data-theme="dark"] pre code .kp, 
+[data-theme="dark"] pre code .kn, 
+[data-theme="dark"] pre code .kc, 
+[data-theme="dark"] pre code .nb, 
+[data-theme="dark"] pre code .bp {
+  color: #569cd6 !important; /* VS Code keyword blue */
+}
+
+/* Functions and methods */
+[data-theme="dark"] pre code .nf, 
+[data-theme="dark"] pre code .fm,
+[data-theme="dark"] pre code .nd {
+  color: #dcdcaa !important; /* VS Code function yellow */
+}
+
+/* Classes and types */
+[data-theme="dark"] pre code .nc,
+[data-theme="dark"] pre code .nn {
+  color: #4ec9b0 !important; /* VS Code class/type cyan */
+}
+
+/* Strings */
+[data-theme="dark"] pre code .s,  
+[data-theme="dark"] pre code .sa, 
+[data-theme="dark"] pre code .sb, 
+[data-theme="dark"] pre code .sc, 
+[data-theme="dark"] pre code .dl, 
+[data-theme="dark"] pre code .s2, 
+[data-theme="dark"] pre code .se, 
+[data-theme="dark"] pre code .sh, 
+[data-theme="dark"] pre code .si, 
+[data-theme="dark"] pre code .sx, 
+[data-theme="dark"] pre code .sr, 
+[data-theme="dark"] pre code .s1, 
+[data-theme="dark"] pre code .ss {
+  color: #ce9178 !important; /* VS Code string orange */
+}
+
+/* Numbers */
+[data-theme="dark"] pre code .mi, 
+[data-theme="dark"] pre code .mf, 
+[data-theme="dark"] pre code .il, 
+[data-theme="dark"] pre code .m,  
+[data-theme="dark"] pre code .mb, 
+[data-theme="dark"] pre code .mh, 
+[data-theme="dark"] pre code .mo {
+  color: #b5cea8 !important; /* VS Code number green */
+}
+
+/* Variables */
+[data-theme="dark"] pre code .na, 
+[data-theme="dark"] pre code .nv, 
+[data-theme="dark"] pre code .vc, 
+[data-theme="dark"] pre code .vg, 
+[data-theme="dark"] pre code .vi {
+  color: #9cdcfe !important; /* VS Code variable light blue */
+}
+
+/* HTML/XML tags */
+[data-theme="dark"] pre code .nt {
+  color: #569cd6 !important; /* VS Code tag blue */
+}
+
+/* Operators and punctuation */
+[data-theme="dark"] pre code .o,  
+[data-theme="dark"] pre code .ow, 
+[data-theme="dark"] pre code .p,  
+[data-theme="dark"] pre code .pi {
+  color: #d4d4d4 !important; /* Default text color */
+}
+
+/* Generic */
+[data-theme="dark"] pre code .ge { font-style: italic; }
+[data-theme="dark"] pre code .gs { font-weight: bold; }
+
+/* Errors */
+[data-theme="dark"] pre code .err {
+  color: #f44747 !important; /* VS Code error red */
+  background: transparent !important;
+}
+
+/* --- VS Code Light Theme --- */
+[data-theme="light"] .code-block-container > pre,
+[data-theme="light"] pre.highlight, 
+[data-theme="light"] pre code {
+  background: #f8f8f8 !important; /* Light greyish background */
+  color: #000000 !important; /* VS Code light text */
+}
+
+/* Comments - VS Code light */
+[data-theme="light"] pre code .c,
+[data-theme="light"] pre code .cm,
+[data-theme="light"] pre code .c1,
+[data-theme="light"] pre code .cs,
+[data-theme="light"] pre code .ch, 
+[data-theme="light"] pre code .cd, 
+[data-theme="light"] pre code .cp, 
+[data-theme="light"] pre code .cpf,
+[data-theme="light"] pre code .sd {
+  color: #008000 !important; /* VS Code light comment green */
+  font-style: italic;
+}
+
+/* Keywords - VS Code light */
+[data-theme="light"] pre code .k,
+[data-theme="light"] pre code .kd,
+[data-theme="light"] pre code .kt,
+[data-theme="light"] pre code .kr,
+[data-theme="light"] pre code .kp,
+[data-theme="light"] pre code .kn,
+[data-theme="light"] pre code .kc,
+[data-theme="light"] pre code .nb,
+[data-theme="light"] pre code .bp {
+  color: #0000ff !important; /* VS Code light keyword blue */
+}
+
+/* Functions */
+[data-theme="light"] pre code .nf,
+[data-theme="light"] pre code .fm,
+[data-theme="light"] pre code .nd {
+  color: #795e26 !important; /* VS Code light function brown */
+}
+
+/* Classes and types */
+[data-theme="light"] pre code .nc,
+[data-theme="light"] pre code .nn {
+  color: #267f99 !important; /* VS Code light class teal */
+}
+
+/* Strings */
+[data-theme="light"] pre code .s,
+[data-theme="light"] pre code .sa,
+[data-theme="light"] pre code .sb,
+[data-theme="light"] pre code .sc,
+[data-theme="light"] pre code .dl,
+[data-theme="light"] pre code .s2,
+[data-theme="light"] pre code .se,
+[data-theme="light"] pre code .sh,
+[data-theme="light"] pre code .si,
+[data-theme="light"] pre code .sx,
+[data-theme="light"] pre code .sr,
+[data-theme="light"] pre code .s1,
+[data-theme="light"] pre code .ss {
+  color: #a31515 !important; /* VS Code light string red */
+}
+
+/* Numbers */
+[data-theme="light"] pre code .mi,
+[data-theme="light"] pre code .mf,
+[data-theme="light"] pre code .il,
+[data-theme="light"] pre code .m,
+[data-theme="light"] pre code .mb,
+[data-theme="light"] pre code .mh,
+[data-theme="light"] pre code .mo {
+  color: #098658 !important; /* VS Code light number green */
+}
+
+/* Variables */
+[data-theme="light"] pre code .na,
+[data-theme="light"] pre code .nv,
+[data-theme="light"] pre code .vc,
+[data-theme="light"] pre code .vg,
+[data-theme="light"] pre code .vi {
+  color: #001080 !important; /* VS Code light variable blue */
+}
+
+/* HTML/XML tags */
+[data-theme="light"] pre code .nt {
+  color: #800000 !important; /* VS Code light tag maroon */
+}
+
+/* Operators and punctuation */
+[data-theme="light"] pre code .o,  
+[data-theme="light"] pre code .ow, 
+[data-theme="light"] pre code .p,  
+[data-theme="light"] pre code .pi {
+  color: #000000 !important; /* Default text color */
+}
+
+/* Generic */
+[data-theme="light"] pre code .ge { font-style: italic; }
+[data-theme="light"] pre code .gs { font-weight: bold; }
+
+/* Errors */
+[data-theme="light"] pre code .err {
+  color: #cd3131 !important; /* VS Code light error red */
+  background: transparent !important;
+}
+
+/* --- Night Theme (Custom Dark Purple) --- */
+[data-theme="night"] .code-block-container > pre,
+[data-theme="night"] pre.highlight, 
+[data-theme="night"] pre code {
+  background: #1f1f2e !important; /* Dark greyish purple background */
+  color: #fce7f3 !important; /* Very light rose text */
+}
+
+/* Comments - Night theme */
+[data-theme="night"] pre code .c,
+[data-theme="night"] pre code .cm,
+[data-theme="night"] pre code .c1,
+[data-theme="night"] pre code .cs,
+[data-theme="night"] pre code .ch, 
+[data-theme="night"] pre code .cd, 
+[data-theme="night"] pre code .cp, 
+[data-theme="night"] pre code .cpf,
+[data-theme="night"] pre code .sd {
+  color: #c084fc !important; /* Light purple for comments */
+  font-style: italic;
+}
+
+/* Keywords - Night theme */
+[data-theme="night"] pre code .k,
+[data-theme="night"] pre code .kd,
+[data-theme="night"] pre code .kt,
+[data-theme="night"] pre code .kr,
+[data-theme="night"] pre code .kp,
+[data-theme="night"] pre code .kn,
+[data-theme="night"] pre code .kc,
+[data-theme="night"] pre code .nb,
+[data-theme="night"] pre code .bp {
+  color: #ff3e5e !important; /* Bright rose for keywords */
+}
+
+/* Functions */
+[data-theme="night"] pre code .nf,
+[data-theme="night"] pre code .fm,
+[data-theme="night"] pre code .nd {
+  color: #fbbf24 !important; /* Golden yellow for functions */
+}
+
+/* Classes and types */
+[data-theme="night"] pre code .nc,
+[data-theme="night"] pre code .nn {
+  color: #a855f7 !important; /* Purple for classes */
+}
+
+/* Strings */
+[data-theme="night"] pre code .s,
+[data-theme="night"] pre code .sa,
+[data-theme="night"] pre code .sb,
+[data-theme="night"] pre code .sc,
+[data-theme="night"] pre code .dl,
+[data-theme="night"] pre code .s2,
+[data-theme="night"] pre code .se,
+[data-theme="night"] pre code .sh,
+[data-theme="night"] pre code .si,
+[data-theme="night"] pre code .sx,
+[data-theme="night"] pre code .sr,
+[data-theme="night"] pre code .s1,
+[data-theme="night"] pre code .ss {
+  color: #10b981 !important; /* Emerald for strings */
+}
+
+/* Numbers */
+[data-theme="night"] pre code .mi,
+[data-theme="night"] pre code .mf,
+[data-theme="night"] pre code .il,
+[data-theme="night"] pre code .m,
+[data-theme="night"] pre code .mb,
+[data-theme="night"] pre code .mh,
+[data-theme="night"] pre code .mo {
+  color: #fb7185 !important; /* Light rose for numbers */
+}
+
+/* Variables */
+[data-theme="night"] pre code .na,
+[data-theme="night"] pre code .nv,
+[data-theme="night"] pre code .vc,
+[data-theme="night"] pre code .vg,
+[data-theme="night"] pre code .vi {
+  color: #ddd6fe !important; /* Very light purple for variables */
+}
+
+/* HTML/XML tags */
+[data-theme="night"] pre code .nt {
+  color: #ff3e5e !important; /* Bright rose for tags */
+}
+
+/* Operators and punctuation */
+[data-theme="night"] pre code .o,  
+[data-theme="night"] pre code .ow, 
+[data-theme="night"] pre code .p,  
+[data-theme="night"] pre code .pi {
+  color: #fce7f3 !important; /* Light rose for operators */
+}
+
+/* Generic */
+[data-theme="night"] pre code .ge { font-style: italic; }
+[data-theme="night"] pre code .gs { font-weight: bold; }
+
+/* Errors */
+[data-theme="night"] pre code .err {
+  color: #ef4444 !important; /* Bright red for errors */
+  background: transparent !important;
+}
+
+/* Additional VS Code-like tokens */
+[data-theme="dark"] pre code .gd { color: #f44747 !important; } /* Deletion */
+[data-theme="dark"] pre code .gi { color: #89d185 !important; } /* Addition */
+[data-theme="light"] pre code .gd { color: #cd3131 !important; } /* Deletion */
+[data-theme="light"] pre code .gi { color: #116329 !important; } /* Addition */
+[data-theme="night"] pre code .gd { color: #ef4444 !important; } /* Deletion */
+[data-theme="night"] pre code .gi { color: #10b981 !important; } /* Addition */

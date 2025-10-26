@@ -1,0 +1,108 @@
+---
+layout: default
+title: Projects
+---
+
+<section class="blog-hero"> <!-- Reusing blog-hero for similar structure and styling -->
+  <div class="container">
+    <h1>Projects</h1>
+
+    <div class="blog-hero-featured"> <!-- Reusing class for consistent styling -->
+      <div class="blog-hero-featured-header">
+        <span class="featured-icon"><i data-lucide="lightbulb"></i></span>
+        <div class="blog-hero-featured-title">Welcome to Projects!</div>
+      </div>
+      <div class="blog-hero-featured-content">
+        <p>This is a collection of projects I’ve worked on from coursework to systems software and hackathons.</p>
+        <p>Each one includes a short write-up along with GitHub and live links where available.</p>
+      </div>
+    </div>
+
+    <p>Browse through to explore the code and try things out for yourself. If you’ve got questions
+      <br>about a project or want to build something together, feel free to reach out :)</p>
+  </div>
+</section>
+
+<section class="blog-content recent projects-listing">
+  <div class="container">
+    {% if site.data.projects and site.data.projects.size > 0 %}
+    <div class="projects-grid">
+      {% for project in site.data.projects %}
+      <article class="project-card">
+        <div class="project-header">
+          <div class="project-icon-large">
+            {% if project.image_url %}
+            <img src="{{ project.image_url }}" alt="{{ project.name }}" class="project-logo-img" />
+            {% elsif project.image %}
+            <img src="{{ project.image | relative_url }}" alt="{{ project.name }}" class="project-logo-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="project-icon-fallback" style="display: none;">
+              {% if project.emoji %}
+              <span class="emoji">{{ project.emoji }}</span>
+              {% elsif project.icon %}
+              <i data-lucide="{{ project.icon | default: 'folder' }}"></i>
+              {% else %}
+              <i data-lucide="folder"></i>
+              {% endif %}
+            </div>
+            {% elsif project.emoji %}
+            <span class="emoji">{{ project.emoji }}</span>
+            {% elsif project.icon %}
+            <i data-lucide="{{ project.icon | default: 'folder' }}"></i>
+            {% else %}
+            <i data-lucide="folder"></i>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="project-content">
+          <div class="project-title-row">
+            <h3 class="project-title">
+              {{ project.name }}
+            </h3>
+            <div class="project-status-and-links">
+              {% if project.github %}
+              <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="project-link"
+                title="Source Code">
+                <i data-lucide="github"></i>
+              </a>
+              {% endif %}
+              {% if project.demo %}
+              <a href="{{ project.demo }}" target="_blank" rel="noopener noreferrer" class="project-link"
+                title="Live Demo">
+                <i data-lucide="external-link"></i>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+
+          <p class="project-description">{{ project.description }}</p>
+
+          {% if project.technologies and project.technologies.size > 0 %}
+          <div class="project-tech-stack">
+            {% for tech in project.technologies %}
+            <a href="{{ '/tags/' | relative_url }}#{{ tech | slugify }}" class="tech-badge">{{ tech }}</a>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="projects-grid">
+      <article class="project-card">
+        <div class="project-header">
+          <div class="project-icon-large">
+            <i data-lucide="code"></i>
+          </div>
+          <h3 class="project-title">No projects yet</h3>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Add your projects to the _data/projects.yml file to get started!</p>
+        </div>
+      </article>
+    </div>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,100 @@
+---
+layout: default
+title: Blog
+---
+
+<section class="blog-hero">
+  <div class="container">
+    <h1>Posts</h1>
+    
+    <div class="blog-hero-featured">
+      <div class="blog-hero-featured-header">
+        <span class="featured-icon"><i data-lucide="edit"></i></span>
+        <div class="blog-hero-featured-title">Welcome to my Blog Posts!</div>
+      </div>
+      <div class="blog-hero-featured-content">
+        <p>
+          Here you'll find everything I'm excited to share, from deep dives into distributed systems, backend engineering, and applied security to personal reflections and project highlights.
+        </p>
+        <p>
+          Whether you're here for technical guides or stories from my journey as a CS student at Queen's University Belfast, I hope you'll learn something new (and maybe have a little fun along the way).
+        </p>
+      </div>
+    </div>
+    
+    <p>Feel free to browse by tag, and don't hesitate to reach out if something sparks your interest.</p>
+    <p>Stay curious and happy reading! 📚✨</p>
+  </div>
+</section>
+
+<section class="blog-content recent"> <!-- Added 'recent' class for consistent spacing -->
+  <div class="container">
+    {% if site.posts.size > 0 %}
+      {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+      
+      {% for year_group in posts_by_year %}
+      <section class="posts-year-section">
+        <h2 class="posts-year-title">{{ year_group.name }}</h2>
+        
+        <div class="posts-year-grid">
+          {% for post in year_group.items %}
+          <article class="blog-post-item">
+            {% if post.image_url %}
+            <div class="blog-post-image">
+              <img src="{{ post.image_url }}" alt="{{ post.title }}" />
+            </div>
+            {% elsif post.image %}
+            <div class="blog-post-image">
+              <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" />
+            </div>
+            {% elsif post.emoji %}
+            <div class="blog-post-emoji">
+              {{ post.emoji }}
+            </div>
+            {% elsif post.icon %}
+            <div class="blog-post-icon">
+              <i data-lucide="{{ post.icon | default: 'file-text' }}"></i>
+            </div>
+            {% else %}
+            <div class="blog-post-icon">
+              <i data-lucide="file-text"></i>
+            </div>
+            {% endif %}
+            
+            <div class="blog-post-content">
+              <h3>
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              </h3>
+              
+              <div class="blog-post-meta">
+                {{ post.date | date: "%a %b %-d, %Y at %H:%M" }}
+                <span data-separator>•</span>
+                {{ post.content | number_of_words }} words
+                <span data-separator>•</span>
+                {{ post.content | number_of_words | divided_by: 200 | ceil }} mins
+              </div>
+              
+              {% if post.tags and post.tags.size > 0 %}
+              <div class="blog-post-tags">
+                {% for tag in post.tags limit:6 %}
+                <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}" class="blog-tag">{{ tag }}</a>
+                {% endfor %}
+              </div>
+              {% endif %}
+              
+              <p class="blog-post-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% endfor %}
+      
+    {% else %}
+      <div class="empty-state">
+        <h3>No posts yet</h3>
+        <p>Check back soon for new content!</p>
+      </div>
+    {% endif %}
+  </div>
+</section>

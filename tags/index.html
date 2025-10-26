@@ -1,0 +1,188 @@
+---
+layout: default
+title: Tags
+---
+
+<section class="blog-hero">
+  <div class="container">
+    <h1>Tags</h1>
+    
+    <div class="blog-hero-featured">
+      <div class="blog-hero-featured-header">
+        <span class="featured-icon"><i data-lucide="tags"></i></span>
+        <div class="blog-hero-featured-title">Explore by Topics</div>
+      </div>
+      <div class="blog-hero-featured-content">
+        <p>Discover content organized by topics, languages, and frameworks across both blog posts and projects. 
+          Click on any tag to see related content and explore connections between different areas of my work.</p>
+      </div>
+    </div>
+    <p>Browse through the collection of tags to find exactly what interests you most! 🙌🙂</p>
+  </div>
+</section>
+
+<section class="blog-content">
+  <div class="container">
+    {% comment %} Collect tags from posts and technologies from projects {% endcomment %}
+    {% assign post_tags = site.posts | map: 'tags' | join: ',' | split: ',' %}
+    {% assign project_techs = site.data.projects | map: 'technologies' | join: ',' | split: ',' %}
+    {% assign all_tags_raw = post_tags | concat: project_techs %}
+    {% assign all_tags = all_tags_raw | where_exp: "item", "item != ''" | uniq | sort %}
+    
+    {% if all_tags.size > 0 %}
+      <div class="tag-cloud-grid">
+        {% for tag in all_tags %}
+        {% unless tag == "" %}
+        {% assign posts_with_tag = site.posts | where_exp: "post", "post.tags contains tag" %}
+        {% assign projects_with_tag = site.data.projects | where_exp: "project", "project.technologies contains tag" %}
+        {% assign total_count = posts_with_tag.size | plus: projects_with_tag.size %}
+        <a href="#{{ tag | slugify }}" class="tag-cloud-card">
+          <div class="tag-cloud-card-content">
+            <h3 class="tag-name">{{ tag }}</h3>
+            <span class="tag-cloud-dot">•</span>
+            <div class="tag-stats">
+              <span class="tag-count">{{ total_count }}</span>
+            </div>
+          </div>
+        </a>
+        {% endunless %}
+        {% endfor %}
+      </div>
+
+      {% comment %} Content sections for each tag {% endcomment %}
+      {% for tag in all_tags %}
+      {% unless tag == "" %}
+      {% assign posts_with_tag = site.posts | where_exp: "post", "post.tags contains tag" %}
+      {% assign projects_with_tag = site.data.projects | where_exp: "project", "project.technologies contains tag" %}
+      {% assign total_items = posts_with_tag.size | plus: projects_with_tag.size %}
+      {% if total_items > 0 %}
+      <section id="{{ tag | slugify }}" class="tag-section">
+        <div class="container">
+          <div class="tag-section-header">
+          <h2 class="tag-section-title">{{ tag }}</h2>
+        </div>
+        <div class="tag-content-grid">
+          {% comment %} Blog Posts {% endcomment %}
+          {% for post in posts_with_tag %}
+            <article class="tag-content-card">
+              <a href="{{ post.url | relative_url }}" class="tag-content-card-link-overlay"></a>
+              <div class="tag-content-body">
+                <div class="tag-content-header">
+                  <span class="content-type">Blog Post</span>
+                  <h3 class="tag-content-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                </div>
+                <p class="tag-content-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+              </div>
+              <div class="tag-content-footer">
+                <div class="tag-content-meta">
+                  <span>{{ post.date | date: "%b %d, %Y" }}</span>
+                  <span data-separator>•</span>
+                  <span>{{ post.content | number_of_words | divided_by: 200 | ceil }} min read</span>
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+          
+          {% comment %} Projects {% endcomment %}
+          {% for project in projects_with_tag %}
+            <article class="tag-content-card">
+              <a href="{{ '/projects/' | relative_url }}#{{ project.name | slugify }}" class="tag-content-card-link-overlay"></a>
+              <div class="tag-content-body">
+                <div class="tag-content-header">
+                  <span class="content-type">Project</span>
+                  <h3 class="tag-content-title"><a href="{{ '/projects/' | relative_url }}#{{ project.name | slugify }}">{{ project.name }}</a></h3>
+                </div>
+                <p class="tag-content-excerpt">{{ project.description }}</p>
+              </div>
+              <div class="tag-content-footer">
+                <!-- <div class="tag-content-meta">
+                  <span>{{ project.technologies | join: ', ' }}</span>
+                </div> -->
+                {% if project.github or project.demo %}
+                <div class="tag-content-links">
+                  {% if project.github %}
+                  <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Project GitHub link for {{ project.name }}">
+                    GitHub
+                  </a>
+                  {% endif %}
+                  {% if project.demo %}
+                  <a href="{{ project.demo }}" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Live demo link for {{ project.name }}">
+                    Demo
+                  </a>
+                  {% endif %}
+                </div>
+                {% endif %}
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+      {% endunless %}
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">
+        <h3>No tags yet</h3>
+        <p>Tags will appear here when you create posts with tags or projects with technologies.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Ensure no global scroll locks are active on this page
+  document.body.classList.remove('intro-active', 'chatbot-blur-active');
+  // Reset any inline overflow lock (no try/catch needed in browsers)
+  document.body.style.overflow = '';
+  // Remove intro overlay if it somehow persisted
+  var intro = document.querySelector('.intro-screen');
+  if (intro) {
+    if (typeof intro.remove === 'function') intro.remove();
+    else if (intro.parentNode) intro.parentNode.removeChild(intro);
+  }
+  // Close mobile sidebar/overlay if left open
+  var overlay = document.querySelector('.mobile-sidebar-overlay');
+  if (overlay) overlay.classList.remove('active');
+  var sidebar = document.getElementById('mobileSidebar');
+  if (sidebar) sidebar.classList.remove('open');
+
+  const tagLinks = document.querySelectorAll('.tag-cloud-card');
+
+  tagLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      const currentActiveSection = document.querySelector('.tag-section.active-tag-section');
+      
+      // Hide current active section
+      if (currentActiveSection) {
+        currentActiveSection.classList.remove('active-tag-section');
+      }
+      
+      if (targetElement) {
+        // Show the target section first
+        targetElement.classList.add('active-tag-section');
+        
+        requestAnimationFrame(() => {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        });
+      }
+    });
+  });
+  
+  // Check if there's a hash in the URL on page load
+  if (window.location.hash) {
+    const targetId = window.location.hash.substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.classList.add('active-tag-section');
+    }
+  }
+});
+</script>

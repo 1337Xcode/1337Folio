@@ -1,0 +1,126 @@
+---
+layout: default
+---
+
+<section class="hero hero-home-centered">
+  <div class="container hero-home-centered-container">
+    <div>
+      <div class="smiley__wrapper" id="smiley__wrapper">
+        <div class="smiley__speech-bubble" id="smiley__speech-bubble" style="display:none;">
+          <span id="smiley__speech-text"></span>
+        </div>
+        <div class="smiley__hair-background"></div>
+        <div class="smiley">
+          <div class="smiley__face">
+            <div class="smiley__eyes">
+              <div class="smiley__eye smiley__eye--left"></div>
+              <div class="smiley__eye smiley__eye--right"></div>
+            </div>
+            <div class="smiley__ears">
+              <div class="smiley__ear smiley__ear--left"></div>
+              <div class="smiley__ear smiley__ear--right"></div>
+            </div>
+            <div class="smiley__nose"></div>
+            <div class="smiley__mouth"></div>
+          </div>
+        </div>
+        <div class="smiley__hair-background smiley__hair-background--wrapper">
+          <div class="smiley__hair">
+            <div class="smiley__hair-part smiley__hair-part--left"></div>
+            <div class="smiley__hair-part smiley__hair-part--right"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-content hero-home-content">
+      <!-- TEMPLATE NOTE: Replace the text below with your own name and short subtitle.
+           You can edit this file directly for quick changes, or set site title/author in `_config.yml`.
+           Example: Replace "Your Name" and the subtitle lines below. -->
+      <h1 class="hero-home-title">Your Name</h1>
+      <p class="hero-home-subtitle">
+        Your short subtitle or role. For example, "Postgrad Student at Your University."<br>
+        Passionate about building useful things and open source.<br>
+        Short tagline about what you build (security, FinTech, web, etc.).
+      </p>
+      <div class="social-links hero-home-social-links">
+        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" class="social-link" title="GitHub">
+          <i data-lucide="github"></i>
+        </a>
+        <a href="https://www.youtube.com/@{{ site.youtube_username }}" target="_blank" rel="noopener" class="social-link" title="YouTube">
+          <i data-lucide="youtube"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
+          <i data-lucide="linkedin"></i>
+        </a>
+        <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener" class="social-link" title="Twitter">
+          <i data-lucide="twitter"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr class="hero-divider">
+</section>
+
+<section class="recent">
+  <div class="container">
+    <h2>Recent</h2>
+    <div class="posts-grid">
+      {% if site.posts.size > 0 %}
+        {% for post in site.posts limit:3 %}
+        <article class="post-card">
+          <div class="post-icon">
+            {% if post.image_url %}
+              <img src="{{ post.image_url }}" alt="{{ post.title }}" style="object-fit: cover; width: 100%; height: 100%;" />
+            {% elsif post.image %}
+              <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" style="object-fit: cover; width: 100%; height: 100%;"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="post-icon-fallback" style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; flex-direction: column;">
+                {% if post.emoji %}
+                  <span class="emoji">{{ post.emoji }}</span>
+                {% elsif post.icon %}
+                  <i data-lucide="{{ post.icon | default: 'file-text' }}"></i>
+                {% else %}
+                  <i data-lucide="file-text"></i>
+                {% endif %}
+              </div>
+            {% elsif post.emoji %}
+              <span class="emoji">{{ post.emoji }}</span>
+            {% elsif post.icon %}
+              <i data-lucide="{{ post.icon | default: 'file-text' }}"></i>
+            {% else %}
+              <i data-lucide="file-text"></i>
+            {% endif %}
+          </div>
+          <div class="post-content">
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+            
+            <div class="post-meta">
+              {{ post.date | date: "%b %d, %Y" }} <span data-separator>•</span> {{ post.content | number_of_words | divided_by: 200 | ceil }} min read
+            </div>
+            
+            {% if post.tags and post.tags.size > 0 %}
+            <div class="post-tags">
+              {% for tag in post.tags limit:4 %}
+              <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}" class="tag">{{ tag }}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+            
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+          </div>
+        </article>
+        {% endfor %}
+      {% else %}
+        <div class="post-card">
+          <div class="post-icon">
+            <i data-lucide="edit"></i>
+          </div>
+          <div class="post-content">
+            <h3>Welcome to your blog!</h3>
+            <p class="post-excerpt">Create your first post in the _posts directory to get started.</p>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

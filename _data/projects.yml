@@ -1,0 +1,21 @@
+# TEMPLATE: Minimal project entry
+# Copy the block below and paste it into this file for each project you add.
+# Replace placeholder values with your own.
+#
+# Example:
+# - name: "Project Name"
+#   description: "One line description of the project."
+#   technologies: ["JavaScript", "HTML", "CSS"]
+#   github: "https://github.com/yourusername/repo"
+#   demo: "https://yourusername.github.io/repo"
+#   # Thumbnail priority: image_url > image > emoji > icon
+#   emoji: "🚀"
+#   image: "/assets/images/projects/project-thumb.png"
+#   icon: "code"
+- name: "Project Name"
+  description: "One line description of the project."
+  technologies: ["Tech1", "Tech2", "Tech3"]
+  github: "https://github.com/yourusername/repo"
+  demo: "https://yourusername.github.io/repo"
+  # Thumbnail priority: image_url > image > emoji > icon
+  emoji: "🚀"

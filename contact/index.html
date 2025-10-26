@@ -1,0 +1,61 @@
+---
+layout: default
+title: Contact
+---
+
+<section class="blog-hero">
+  <div class="container">
+    <h1>Contact</h1>
+    <div class="blog-hero-featured">
+      <div class="blog-hero-featured-header">
+        <span class="featured-icon"><i data-lucide="mail"></i></span>
+        <div class="blog-hero-featured-title">Get in Touch</div>
+      </div>
+      <div class="blog-hero-featured-content">
+        <p>
+          For a quick and guaranteed response use the email below,<br>
+          And for project inquiries or anonymous texts use the form.
+        </p>
+      </div>
+    </div>
+    <p>I'm always open to discussing new projects and opportunities, or collaborating on exciting ideas.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="contact-links-fixed">
+    <!-- TEMPLATE NOTE: replace email here or update _config.yml / site data. -->
+    <a href="mailto:your-email@example.com?subject=%5BPortfolioContact%5D%20" class="contact-link-mono" target="_blank"
+      rel="noopener">
+      <span class="contact-link-label">Email</span>
+      <span class="contact-link-arrow">→</span>
+      <span class="contact-link-address">your-email@example.com</span>
+    </a>
+  </div>
+</div>
+<br>
+<section class="blog-content recent">
+  <div class="container">
+    <form id="contactForm" method="POST" class="contact-form-mono">
+      <div class="contact-form-title">Contact Form</div>
+      <div class="form-row">
+        <input type="text" name="name" id="name" placeholder="Name" required autocomplete="name">
+        <input type="email" name="email" id="email" placeholder="Email (if you want a reply)" autocomplete="email">
+      </div>
+      <textarea name="message" id="message" placeholder="Your message..." rows="6" required style="font-family: inherit;"></textarea>
+      <div class="contact-btn-row" style="display: flex; gap: 1em; align-items: center;">
+        <button type="submit" class="button-creative" style="font-size:1.05rem;padding:0.7em 1.5em;">
+          Send Message
+        </button>
+        <button type="button" id="sendMailBtn" class="button-creative button-mail"
+          style="font-size:1.05rem;padding:0.7em 1.5em; display:none; cursor: help;"
+          title="It's better to send an email for a faster reply!">
+          Send via Mail
+        </button>
+      </div>
+      <input type="hidden" name="_gotcha" style="display:none !important">
+      <input type="hidden" name="_subject" id="hiddenSubject" value="[Portfolio] New Message">
+      <div class="form-status" id="formStatus"></div>
+    </form>
+  </div>
+</section>

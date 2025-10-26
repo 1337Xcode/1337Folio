@@ -1,0 +1,69 @@
+title: Your Site
+description: >-
+  A minimal, reusable portfolio template built with Jekyll. Replace the values below to personalize the site.
+
+baseurl: ""
+url: "https://your-domain.example"
+
+# Helpful placeholders (edit these first):
+# - `site.owner.name` and `site.owner.email` are convenience fields used by
+#   the HTML layout to populate visible defaults. You can also edit
+#   `author.name` / `author.email` below — the layout prefers `site.owner.*` if present.
+owner:
+  name: "Your Name"
+  email: "your-email@example.com"
+
+# Author details for post outro
+author:
+  name: "Your Name"
+  email: "your-email@example.com" # Replace with your contact email
+  avatar: "/assets/images/avatar.jpg"
+  bio: >-
+    Brief bio about yourself. Replace this text with your own description.
+  socials:
+    - icon: "github"
+      url: "https://github.com/yourusername"
+    - icon: "envelope"
+      url: "mailto:your-email@example.com"
+    - icon: "linkedin"
+      url: "https://linkedin.com/in/yourprofile"
+
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Social links (main site links, can be different from author outro)
+github_username: yourusername
+linkedin_username: yourprofile
+youtube_username: yourusername
+website_url: "https://your-domain.example"
+twitter_username: yourusername
+
+# Notes:
+# - Editing `_config.yml` is the canonical way to change site-wide values.
+# - For quick edits without dealing with Jekyll, `_layouts/default.html` exposes
+#   `window.SITE_OWNER` and `window.SITE_EMAIL` which the client-side scripts use
+#   as fallbacks. If you change values here, rebuild the site with `bundle exec jekyll build`.
+
+# Exclude files
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+
+# Permalink settings
+permalink: pretty
+
+# # Pagination
+# paginate: 5
+# paginate_path: "/blog/page:num/"
+
+encoding: "utf-8"

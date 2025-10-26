@@ -1,0 +1,402 @@
+/* Projects Page Styling with Glassmorphism */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.project-card {
+  --border-width: 1px;
+  border-radius: 0; /* Made sharp */
+  position: relative;
+  background: rgba(var(--color-neutral-50), 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0; /* Remove all padding from card */
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Dark theme glassmorphism */
+[data-theme="dark"] .project-card {
+  background: rgba(var(--color-neutral-800), 0.25);
+}
+
+[data-theme="night"] .project-card {
+  background: rgba(var(--color-neutral-900), 0.25);
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  border: var(--border-width) solid transparent;
+  background: linear-gradient(135deg, var(--border-color), rgba(var(--color-primary-500), 0.3)) border-box;
+  mask: linear-gradient(black, black) border-box,
+    linear-gradient(black, black) padding-box;
+  mask-composite: subtract;
+  -webkit-mask-composite: subtract;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.project-card:hover::before {
+  background: linear-gradient(135deg, var(--accent-red), rgba(var(--color-primary-400), 0.5)) border-box;
+}
+
+.project-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0; /* Remove bottom margin */
+  padding: 0; /* Remove all padding */
+}
+
+.project-icon-large {
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+  background: rgba(var(--color-neutral-100), 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border: none;
+  overflow: hidden;
+  position: relative;
+  /* Enforce 16:9 ratio with padding hack for max compatibility */
+  min-height: 320px; /* Increased min height for larger images */
+  height: auto;
+}
+
+.project-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area */
+  object-position: center; /* Center the image */
+  border-radius: 0; /* Made sharp */
+}
+
+.project-icon-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.project-icon-large .emoji {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.project-icon-large i {
+  font-size: 3.5rem;
+  color: var(--text-secondary);
+}
+
+.project-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  text-align: left;
+  padding: calc(var(--space-lg) + 0.5em) var(--space-xl) var(--space-xl); /* Increased top padding */
+  /* Add bottom padding for spacing */
+  padding-bottom: var(--space-xl);
+}
+
+.project-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: 0.25em; /* Reduced gap below title */
+  flex-wrap: wrap;
+}
+
+.project-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.project-status-and-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.project-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+  text-align: left;
+  padding: 0; /* Changed: Remove horizontal padding */
+}
+
+/* Removed padding from project-description */
+.project-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding: 0; /* Match title/description horizontal padding */
+}
+
+.tech-badge {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 0; /* Made sharp */
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+[data-theme="dark"] .tech-badge {
+  border: 1px solid rgba(var(--color-neutral-600), 0.4);
+}
+
+[data-theme="night"] .tech-badge {
+  border: 1px solid rgba(var(--color-neutral-700), 0.4);
+}
+
+.tech-badge:hover {
+  background: transparent;
+  color: var(--accent-red);
+  border-color: var(--accent-red);
+}
+
+.project-status {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.project-links {
+  display: flex;
+  gap: var(--space-md); /* Increased gap between link icons */
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  padding-right: var(--space-sm); /* Add right padding */
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; /* Increased size */
+  height: 36px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1.2em;
+  transition: all 0.2s ease;
+  border: none;
+  border-radius: 0;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-link:hover,
+.project-link:focus {
+  color: var(--accent-red);
+  text-decoration: none;
+  outline: none;
+}
+/* Tablet and smaller screens: single column */
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .project-icon-large {
+    max-width: none;
+    min-height: 220px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .project-logo-img {
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+  }
+
+  .project-icon-large .emoji {
+    font-size: 3.5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .project-icon-large i {
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 600px) {
+  .project-card {
+    padding: 0 !important;
+  }
+  .project-icon-large,
+  .project-image {
+    width: 100%;
+    min-width: 0;
+    min-height: 140px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+  }
+  .project-logo-img,
+  .project-image img,
+  .project-image .emoji,
+  .project-image i {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    display: block;
+  }
+  .project-content {
+    padding: calc(var(--space-lg) + 0.5em);
+    padding-bottom: var(--space-lg); /* Add bottom padding for mobile */
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .project-card {
+    padding: 0 !important;
+  }
+  .project-icon-large,
+  .project-image {
+    width: 100%;
+    min-width: 0;
+    min-height: 90px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+  }
+  .project-logo-img,
+  .project-image img,
+  .project-image .emoji,
+  .project-image i {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    display: block;
+  }
+  .project-content {
+    padding: calc(var(--space-md) + 0.5em);
+    padding-bottom: var(--space-md); /* Add bottom padding for small mobile */
+  }
+}
+
+/* Responsive: Mobile layout stacks image on top, still no padding */
+@media (max-width: 700px) {
+  .project-card {
+    flex-direction: column;
+    border-radius: 0;
+    margin-bottom: var(--space-lg);
+  }
+  .project-image {
+    width: 100%;
+    min-width: 0;
+    height: 180px;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    /* Remove any unwanted spacing */
+    box-sizing: border-box;
+  }
+  .project-image img,
+  .project-image .emoji,
+  .project-image i {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    font-size: 2.5rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    /* Ensure image fills container */
+    display: block;
+  }
+  .project-content {
+    padding: var(--space-lg);
+    padding-bottom: var(--space-lg); /* Add bottom padding for mobile */
+  }
+}
+
+/* Remove rounded borders from tabs */
+.tabs,
+.tabs * {
+  border-radius: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .project-card {
+    padding: var(--space-lg);
+  }
+}
+
+.projects-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  padding: 0; /* Remove any existing padding */
+}

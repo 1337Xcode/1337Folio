@@ -1,0 +1,303 @@
+/* Clean Masonry Gallery for Gallery page with Fancybox */
+
+.gallery-masonry-container {
+  margin: var(--space-xl) 0;
+  padding: 0;
+  background: none;
+  overflow: visible;
+}
+
+.gallery-masonry-grid {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* Remove opacity: 0 and transition here to prevent initial hidden grid */
+  /* opacity: 0;
+  transition: opacity 0.5s ease; */
+}
+
+.gallery-masonry-item {
+  width: 100%;
+  margin-bottom: 20px;
+  break-inside: avoid;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.gallery-masonry-item.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 601px) {
+  .gallery-masonry-item { 
+    width: calc(50% - 10px);
+  }
+}
+
+@media (min-width: 901px) {
+  .gallery-masonry-item { 
+    width: calc(33.333% - 14px);
+  }
+}
+
+.gallery-masonry-card {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  background: none;
+  box-shadow: 0 4px 24px rgba(234,72,95,0.10);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.gallery-masonry-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(234,72,95,0.20);
+  z-index: 2;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+}
+
+.gallery-masonry-img {
+  width: 100%;
+  height: auto;
+  max-height: 350px;
+  display: block;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  background: transparent;
+  /* Optimize rendering */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+@media (max-width: 900px) {
+  .gallery-masonry-img {
+    max-height: 280px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-masonry-img {
+    max-height: 250px;
+  }
+}
+
+.gallery-masonry-card:hover .gallery-masonry-img {
+  filter: brightness(1.05) contrast(1.05);
+}
+
+/* Skeleton effect for images */
+.gallery-image-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out; /* Smoother transition */
+}
+
+.gallery-image.skeleton-loaded {
+  opacity: 1;
+}
+
+.gallery-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  opacity: 1;
+  transition: opacity 0.3s ease-out; /* Smooth fade out for skeleton */
+}
+
+.gallery-skeleton.skeleton-fade-out {
+  opacity: 0;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Fancybox custom styling */
+.fancybox__backdrop {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.fancybox__toolbar {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+}
+
+.fancybox__counter {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fancybox__button {
+  color: #fff;
+  transition: color 0.2s ease;
+}
+
+.fancybox__button:hover {
+  color: var(--accent-red);
+  background: rgba(255,255,255,0.1);
+}
+
+.fancybox__thumbs {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.fancybox__thumb {
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+}
+
+.fancybox__thumb.is-selected,
+.fancybox__thumb:hover {
+  border-color: var(--accent-red);
+}
+
+/* Performance optimizations */
+.gallery-masonry-container * {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-masonry-card,
+  .gallery-masonry-img,
+  .gallery-masonry-item {
+    transition: none;
+  }
+  
+  .gallery-masonry-card:hover {
+    transform: none;
+  }
+  
+  .gallery-masonry-grid {
+    opacity: 1 !important;
+  }
+  
+  .gallery-masonry-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (pointer: coarse) {
+  .gallery-masonry-card:hover {
+    transform: none;
+    box-shadow: 0 4px 24px rgba(234,72,95,0.10);
+  }
+  
+  .gallery-masonry-card:active {
+    transform: scale(0.98);
+  }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .gallery-masonry-img {
+    image-rendering: -webkit-optimize-contrast; /* Edge 79+ */
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Remove old styles - keep these to ensure cleanup */
+.pics-card-overlay,
+.pics-card-info,
+.pics-card-title,
+.pics-card-desc,
+.pics-modal-bg,
+.pics-modal-content,
+.pics-modal-img,
+.pics-modal-title,
+.pics-modal-desc,
+.pics-modal-close,
+.pics-modal-arrow,
+.pics-scroll-hint,
+.pics-gallery-flex,
+.pics-gallery-grid,
+.pics-masonry-scroll,
+.pics-masonry-row,
+.pics-masonry-card-old,
+.pics-masonry-img-old {
+  display: none !important;
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .gallery-masonry-img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+  .pics-card {
+    min-height: 180px;
+  }
+  .pics-card-img {
+    height: 120px;
+  }
+  .pics-modal-content {
+    padding: 1em;
+  }
+  .pics-modal-img {
+    max-width: 90vw;
+    max-height: 40vh;
+  }
+  .pics-modal-arrow.left { left: -1.2em; }
+  .pics-modal-arrow.right { right: -1.2em; }
+
+@media (max-width: 600px) {
+  .pics-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8em;
+    padding: 0.5em 0;
+  }
+  .pics-modal-content {
+    padding: 0.5em;
+  }
+  .pics-modal-img {
+    max-width: 98vw;
+    max-height: 30vh;
+  }
+  .pics-modal-arrow.left,
+  .pics-modal-arrow.right {
+    left: 0;
+    right: 0;
+    top: unset;
+    bottom: -2.5em;
+    transform: none;
+    margin: 0 1em;
+  }
+}

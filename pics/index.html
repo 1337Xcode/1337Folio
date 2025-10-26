@@ -1,0 +1,315 @@
+---
+layout: default
+title: Gallery
+---
+
+<section class="blog-hero">
+  <div class="container">
+    <h1>Gallery</h1>
+    <div class="blog-hero-featured">
+      <div class="blog-hero-featured-header">
+        <span class="featured-icon"><i data-lucide="image"></i></span>
+        <div class="blog-hero-featured-title">Welcome to Gallery</div>
+      </div>
+      <div class="blog-hero-featured-content">
+        <p>Just some random photos I took.</p>
+      </div>
+    </div>
+    <p>Hope you enjoy it, I would also be updating this page to make it more interactive soon!</p>
+  </div>
+</section>
+
+<section class="blog-content recent">
+  <div class="container">
+    <div class="gallery-masonry-container">
+      <div class="gallery-masonry-grid" id="gallery-grid">
+        {% assign image_files = site.static_files | where_exp: 'item', 'item.path contains "/assets/images/pics/"' %}
+        {% assign allowed_extensions = '.jpg,.jpeg,.png,.gif,.svg,.webp' | split: ',' %}
+        {% for file in image_files %}
+          {% assign extension = file.extname | downcase %}
+          {% if allowed_extensions contains extension %}
+            <div class="gallery-masonry-item">
+              <a href="{{ file.path | relative_url }}" 
+                 class="gallery-masonry-card" 
+                 data-fancybox="gallery"
+                 data-caption="{{ forloop.index }}">
+                <div class="image-wrapper">
+                  <!-- Add placeholder div -->
+                  <div class="image-placeholder"></div>
+                  <img 
+                    data-src="{{ file.path | relative_url }}" 
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3C/svg%3E"
+                    alt="{{ forloop.index }}" 
+                    class="gallery-masonry-img lazyload"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Fancybox CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
+<!-- Masonry JS -->
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" defer></script>
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js" defer></script>
+<!-- Fancybox JS -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js" defer></script>
+<!-- Lazysizes JS for fast/cached image loading -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
+
+<style>
+  #gallery-grid {
+    opacity: 1;
+  }
+  
+  .gallery-masonry-item { 
+    margin-bottom: 20px;
+    break-inside: avoid;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .gallery-masonry-item.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .gallery-masonry-card {
+    display: block;
+    text-decoration: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0); /* Enable hardware acceleration */
+  }
+  
+  .gallery-masonry-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.15),
+      0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  [data-theme="dark"] .gallery-masonry-card:hover,
+  [data-theme="night"] .gallery-masonry-card:hover {
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.4),
+      0 8px 16px rgba(0, 0, 0, 0.25);
+  }
+  
+  .image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--bg-secondary);
+    min-height: 200px;
+    transition: all 0.3s ease;
+  }
+  
+  .gallery-masonry-card:hover .image-wrapper {
+    border-radius: 8px;
+  }
+  
+  .image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: placeholderShimmer 1.5s infinite;
+    z-index: 1;
+    border-radius: 12px;
+  }
+  
+  .gallery-masonry-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    position: relative;
+    z-index: 2;
+    border-radius: 12px;
+  }
+  
+  .gallery-masonry-card:hover .gallery-masonry-img {
+    transform: scale(1.05);
+    filter: brightness(0.9) contrast(1.1);
+  }
+  
+  .gallery-masonry-img.lazyloaded {
+    opacity: 1;
+  }
+  
+  /* Add subtle overlay on hover */
+  .gallery-masonry-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg, 
+      rgba(255, 255, 255, 0.1) 0%, 
+      transparent 50%, 
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 3;
+    border-radius: 12px;
+    pointer-events: none;
+  }
+  
+  .gallery-masonry-card:hover::after {
+    opacity: 1;
+  }
+  
+  .gallery-masonry-img.lazyloaded ~ .image-placeholder {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  @keyframes placeholderShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  /* Responsive columns */
+  @media (min-width: 768px) {
+    .gallery-masonry-item {
+      width: calc(50% - 10px);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .gallery-masonry-item {
+      width: calc(33.333% - 14px);
+    }
+  }
+  
+  @media (min-width: 1440px) {
+    .gallery-masonry-item {
+      width: calc(25% - 15px);
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const grid = document.getElementById('gallery-grid');
+  let masonry = null;
+  let loadedImages = 0;
+  const items = grid.querySelectorAll('.gallery-masonry-item');
+
+  // Initialize Fancybox first
+  if (typeof Fancybox !== 'undefined') {
+    Fancybox.bind('[data-fancybox="gallery"]', {
+      Thumbs: { autoStart: false },
+      Toolbar: {
+        display: {
+          left: ["infobar"],
+          middle: [],
+          right: ["slideshow", "thumbs", "close"],
+        },
+      },
+      Images: { zoom: true },
+      animated: true,
+      showClass: "f-fadeIn",
+      hideClass: "f-fadeOut",
+    });
+  }
+
+  // Fade in items as images load
+  function fadeInItem(item, delay = 0) {
+    setTimeout(() => {
+      item.classList.add('loaded');
+    }, delay);
+  }
+
+  function initMasonry() {
+    if (typeof Masonry !== 'undefined') {
+      masonry = new Masonry(grid, {
+        itemSelector: '.gallery-masonry-item',
+        columnWidth: '.gallery-masonry-item',
+        percentPosition: true,
+        gutter: 20,
+        transitionDuration: '0.2s',
+        fitWidth: true
+      });
+
+      // Layout immediately and fade in items progressively
+      masonry.layout();
+      
+      // Fade in items with staggered delay
+      items.forEach((item, index) => {
+        fadeInItem(item, index * 50);
+      });
+
+      // Optimized resize handler
+      let resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+          if (masonry) {
+            masonry.reloadItems();
+            masonry.layout();
+          }
+        }, 150);
+      });
+    } else {
+      setTimeout(initMasonry, 50);
+    }
+  }
+
+  // Handle image loading with better masonry integration
+  document.addEventListener('lazyloaded', function(e) {
+    if (e.target.classList.contains('gallery-masonry-img')) {
+      loadedImages++;
+      
+      // Hide placeholder smoothly
+      const placeholder = e.target.parentNode.querySelector('.image-placeholder');
+      if (placeholder) {
+        placeholder.style.opacity = '0';
+        setTimeout(() => {
+          if (placeholder.parentNode) {
+            placeholder.remove();
+          }
+        }, 400);
+      }
+      
+      // Update masonry layout more efficiently
+      if (masonry) {
+        const item = e.target.closest('.gallery-masonry-item');
+        if (item) {
+          // Force immediate re-layout for this specific item
+          masonry.layout();
+        }
+      }
+    }
+  });
+
+  // Wait for images to have proper dimensions before initializing
+  if (typeof imagesLoaded !== 'undefined') {
+    imagesLoaded(grid, function() {
+      initMasonry();
+    });
+  } else {
+    // Fallback if imagesLoaded isn't available
+    setTimeout(initMasonry, 100);
+  }
+});
+</script>
