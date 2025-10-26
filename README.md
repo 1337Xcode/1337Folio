@@ -97,7 +97,7 @@ Deployment options
 
 ## Contributing and support
 
-See `CONTRIBUTING.md` for how to file issues and submit pull requests.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to file issues and submit pull requests.
 
 ## License
 

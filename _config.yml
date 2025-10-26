@@ -2,7 +2,7 @@ title: Your Site
 description: >-
   A minimal, reusable portfolio template built with Jekyll. Replace the values below to personalize the site.
 
-baseurl: ""
+baseurl: "/1337Folio" # Replace with your repository name if hosting on GitHub Pages under a project site; otherwise, leave as "" for other hosting.
 url: "https://your-domain.example"
 
 # Helpful placeholders (edit these first):
