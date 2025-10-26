@@ -132,22 +132,19 @@
       const speechBubble = document.getElementById('smiley__speech-bubble');
       const speechText = document.getElementById('smiley__speech-text');
       const speechMessages = [
-        "This site has 11,000+ lines of code!",
-        "Hover over me to hear me out!",
-        "I can blink, smile, and even talk!",
-        "Only 1 guy made this site! Who? Me!",
-        "There are Easter eggs hidden around!",
-        "Check this site on desktop for the full experience!",
-        "It took almost a month to build this site!",
-        "Follow me on Github!",
-        "Think this is cool? go see my projects!",
-        "You can send your feedback through the contact form!",
-        "Check out my blog for more stuff!", "Let's connect on LinkedIn!",
-        "I'm always open to collaborations!",
-        "This site is mobile-friendly!",
-        "Wondering if I should open source this 🤔",
-        "I been coding since I was 12!",
-        "Lua was my first programming language!"];
+        "Hover over me to see a tip",
+        "Try the Projects page to view examples",
+        "Visit the Blog for longer posts and notes",
+        "Use the Contact page to send feedback",
+        "Explore tags to find related posts and projects",
+        "This site works on desktop and mobile",
+        "Icons show which technologies were used",
+        "Try the site on desktop for extra effects",
+        "Images and thumbnails are under assets/images/pics",
+        "Looking for examples? Check the Projects page",
+        "Thanks for visiting — enjoy exploring!",
+        "If something looks off, open an issue with steps to reproduce"
+      ];
 
       let lastSpeechIndex = -1; // Track last message index
       let mouthAnimInterval = null;

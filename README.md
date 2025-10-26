@@ -99,9 +99,28 @@ Deployment options
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to file issues and submit pull requests.
 
+## Blog
+
+This template includes a blog. Add posts in `_posts/` using the Jekyll format `YYYY-MM-DD-title.md`. Each post should include front matter with `title` and `date`. You can add `tags` to categorize posts. The example post `_posts/2025-10-25-markdown-all-features-demo.md` shows many supported features and front matter usage.
+
+Posts are listed under `/blog/`. Tag links point to the Tags page where posts and projects with the same tag are grouped.
+
+## Pics / Gallery page
+
+The gallery page is located at `pics/index.html`. Store image files under `assets/images/pics/` and reference them from the gallery page or from posts. Keep large images optimized for web delivery. If you add many images, consider adding smaller thumbnails and linking to full-size images.
+
+Edit `pics/index.html` to change how images are presented or to add captions and layout changes.
+
+## Profile animation and tab behavior
+
+The profile icon on the homepage includes a small animation script (`assets/js/anims/pfp.js`) that changes the avatar expression and can show short, friendly tips. Messages are generic by default. You can edit `assets/js/anims/pfp.js` to change or remove those messages.
+
+The site also includes a small tab title script (`assets/js/anims/tab.js`) that updates the browser tab title when the page is not visible. This is optional and can be removed if you prefer the browser to keep the original title at all times.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
 
 ## Credits
+
 Created by 1337XCode. If you reuse this template keep the credit line in the footer.
